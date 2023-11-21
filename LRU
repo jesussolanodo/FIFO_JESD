@@ -1,0 +1,91 @@
+#include<iostream>
+#include<vector>
+#include<stdlib.h>
+#include<list>
+//LRU
+
+using namespace std;
+
+void show (list <int> );
+bool compare(list <int>, int);
+list<int> Switch(list<int>, int);
+
+int main(){
+	list <int> Lista;			//Variable de tipo lista que recibe enteros, llamada Lista
+	int  Array[] = {7,0,1,2,0,3,0,4,2,3,0,0,1,2,0};  // tam 15
+//	int Array[]= {8,7,4,7,5,0,5,2,7,8,4,0,7,6,2,3}; //arreglo de M tamaño 17int V[M*N]=[]
+	int M = sizeof(Array) / sizeof(Array[0]);	//Numero de Procesos
+	int N;									//Numero de Frames 
+	int i=0, j=0 , k=0;								//Contadores
+	int  P=0, H=0;								//P = Page y H = Hit
+	float PM, HR;								//PM = Page Miss, HR = Hit Ratio 
+	vector <int> vec [M];
+	
+	cout << "Paginas a memoria" << endl;	//Muestra el Array
+	for (i = 0; i < M; i++)
+		cout  << Array[i] << "  ";
+	cout << "\n\n";
+	
+	cout <<"Ingrese el tamanio de frames: ";
+	cin >>N;
+	
+	
+	for (i = 0; i < M; i++){		
+		if (!compare(Lista,Array[i])){
+			if ( j >= N)
+		
+			Lista.pop_front();
+			Lista.push_back(Array[i]);
+	
+//		Lista.pop_back();
+//			Lista.push_front(Array[i]);
+			j++;
+			P++;	
+		}else{
+			Lista = Switch (Lista, Array [i]);
+			H++;	
+		}
+	
+		vec[k] = Lista;
+		k++;
+		show(Lista);					
+	}
+
+	PM = ((float)P / M) *  100;
+	HR = ((float)H / M) *  100;
+	
+	cout << "\nPage Default: " << P << "\tPage Hit: " << H << endl;
+	cout << "\nPage Miss = " << PM << "\t\tHit Ratio: "<< HR << endl;
+}
+
+void show (list <int> Lista){
+	for (int& num: Lista){
+		cout << num << " ";
+	}
+	cout << "\n";
+}
+
+
+list<int> Switch(list<int> Lista, int valor){
+	auto it = Lista.begin();
+	while (it != Lista.end()){
+		if (*it == valor){
+			Lista.erase(it);
+			break;
+		}
+		++it;
+	}
+	Lista.push_back(valor);
+
+	return Lista;
+}
+
+bool compare (list <int> Lista, int valor){
+	auto it = Lista.begin();	
+	while (it != Lista.end()){
+		if(*it == valor)
+			return true;
+		++it;
+	}
+	return false;
+}
