@@ -1,0 +1,48 @@
+#include <iostream>
+#include <conio.h>
+//#include <stdio.h>
+using namespace std;
+//creamos una estrutura, cada nodo almacenara el dato
+struct nodo{
+	int dato;
+	//necesitamos un apuntador tipo structura con el mismo
+	//nombre al que emepzamos
+	struct nodo *sig; //este va ir brincando de nodo a nodo
+	
+} *inicio=NULL,*ultimo=NULL, *aux; 
+//DOS APUNTADORES AL PRIMER ELEMENTO
+
+//creamos las funciones para elegrar los n elementos
+//requerirdos
+
+void Agregar_elementos(int num){
+	aux= new nodo; //numeva estru que tiene lo de arriba nodo
+	aux->dato=num;
+	if(inicio==NULL){
+		inicio=ultimo=aux;//posiciono los nuevos dos apuntadores
+		aux->sig=NULL;
+		//POR SI YA HAY UN primer elemento PASA ESTO
+		}
+		else{
+			aux->sig=NULL;
+			ultimo->sig=aux; //el ultimo que se quedo señalando al primero apunte a aux, que es nueva
+			ultimo=aux;
+		}
+	
+}
+void listado(){
+	cout<<"\nDatos en cola: \n";
+	aux=inicio;
+	while (aux!=NULL){
+		cout<<aux->dato<<"--->";
+		aux=aux->sig;
+	}
+	cout<<"NULL";
+}
+
+
+int main(){
+	void Agregar_elementos(int num);
+	void listado();
+
+}
